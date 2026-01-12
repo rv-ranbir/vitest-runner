@@ -91,6 +91,7 @@
     "prepack": "npm run compile",
     "package": "npm run compile && vsce package",
     "build": "npm run compile",
+    "publish": "npm run compile && vsce publish",
     "publish:openvsx": "npm run compile && ovsx publish"
   },
   "devDependencies": {
