@@ -2,6 +2,27 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [1.0.0] - 2025-01-27
+
+### Release
+- **Major version release** - Extension is now stable and production-ready
+- All previous fixes and improvements consolidated into stable release
+
+### Fixed
+- Root describe blocks now correctly run all nested tests
+- Escape special regex characters in test names to prevent pattern matching issues
+- Test names with special characters like `.`, `(`, `)`, `[`, `]`, `+`, `*`, `?`, `^`, `$`, `|`, `\` now work correctly
+
+### Changed
+- Updated README: removed manual installation section, improved language
+- Added Open VSX publishing support with environment variable configuration
+- Improved publish scripts for both VS Code Marketplace and Open VSX
+
+### Added
+- Cursor IDE compatibility and documentation
+- Local testing setup with test files
+- Comprehensive error handling and logging
+
 ## [0.2.1] - 2025-01-27
 
 ### Fixed

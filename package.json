@@ -2,7 +2,7 @@
   "name": "vitest-runner",
   "displayName": "Vitest CodeLens Runner",
   "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces. Works with VS Code and Cursor.",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "publisher": "RanbirVerma",
   "repository": {
     "type": "git",
@@ -92,7 +92,8 @@
     "package": "npm run compile && vsce package",
     "build": "npm run compile",
     "publish": "npm run compile && vsce publish",
-    "publish:openvsx": "npm run compile && dotenv -e .env -- ovsx publish"
+    "publish:openvsx": "npm run compile && dotenv -e .env -- ovsx publish",
+    "test:local": "npm run compile && code --extensionDevelopmentPath=${workspaceFolder} test-files"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
