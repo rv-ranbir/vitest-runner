@@ -1,6 +1,6 @@
 {
   "name": "vitest-runner",
-  "displayName": "Vitest Runner",
+  "displayName": "Vitest CodeLens Runner",
   "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces.",
   "version": "0.1.0",
   "publisher": "RanbirVerma",

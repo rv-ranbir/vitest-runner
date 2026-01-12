@@ -13,7 +13,7 @@ Run Vitest tests with CodeLens support - Run and Debug tests directly from your 
 
 ## Installation
 
-Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode) or search for "Vitest Runner" in the Extensions view.
+Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode) or search for "Vitest CodeLens Runner" in the Extensions view.
 
 Or install from the repository:
 ```bash
