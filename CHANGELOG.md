@@ -2,6 +2,17 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [0.2.0] - 2025-01-27
+
+### Fixed
+- Root describe blocks now correctly run all nested tests instead of skipping them
+- Improved test pattern matching for describe blocks to include nested tests
+
+### Changed
+- Updated README: removed manual installation section, improved language
+- Added Open VSX publishing support with environment variable configuration
+- Improved publish scripts for both VS Code Marketplace and Open VSX
+
 ## [0.1.1] - 2025-01-27
 
 ### Added

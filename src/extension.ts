@@ -132,7 +132,7 @@ function runAtCursor() {
   const cursor = editor.document.offsetAt(editor.selection.active);
   const tests = collectTests(source).filter(t => t.pos <= cursor);
   const test = tests[tests.length - 1];
-  test ? runVitest(file, test.name) : runFile();
+  test ? runVitest(file, test.name, false, test.type) : runFile();
 }
 
 function runFile() {
@@ -141,7 +141,7 @@ function runFile() {
   runVitest(editor.document.fileName);
 }
 
-function runVitest(file: string, pattern?: string, debug: boolean = false) {
+function runVitest(file: string, pattern?: string, debug: boolean = false, testType?: "describe" | "it" | "test") {
   // Get workspace folder for the file to use folder-specific config
   const workspaceFolders = vscode.workspace.workspaceFolders;
   let workspaceFolder: vscode.WorkspaceFolder | undefined;
@@ -165,7 +165,11 @@ function runVitest(file: string, pattern?: string, debug: boolean = false) {
   const pkg = findPackageRoot(file);
   const cmd = baseCmd.replace("{pkg}", pkg);
   const rel = path.relative(pkg, file);
-  const testArg = pattern ? ` -t "^${pattern}$"` : "";
+  // For describe blocks, use pattern that matches nested tests (no $ anchor)
+  // For it/test blocks, use exact match
+  const testArg = pattern 
+    ? (testType === "describe" ? ` -t "^${pattern}"` : ` -t "^${pattern}$"`)
+    : "";
   const debugArg = debug ? " --inspect-brk" : "";
   
   // Reuse existing terminal or create a new one
@@ -192,20 +196,20 @@ function runVitest(file: string, pattern?: string, debug: boolean = false) {
   terminal.sendText(`${cmd} ${args}${debugArg}${testArg} "${rel}"`);
 }
 
-function runTest(file: string, pattern: string) {
+function runTest(file: string, pattern: string, testType?: "describe" | "it" | "test") {
   if (!file || !pattern) {
     vscode.window.showErrorMessage("Invalid test parameters");
     return;
   }
-  runVitest(file, pattern, false);
+  runVitest(file, pattern, false, testType);
 }
 
-function debugTest(file: string, pattern: string) {
+function debugTest(file: string, pattern: string, testType?: "describe" | "it" | "test") {
   if (!file || !pattern) {
     vscode.window.showErrorMessage("Invalid test parameters");
     return;
   }
-  runVitest(file, pattern, true);
+  runVitest(file, pattern, true, testType);
 }
 
 function diagnose() {
@@ -329,14 +333,14 @@ class VitestCodeLensProvider implements vscode.CodeLensProvider {
         const runLens = new vscode.CodeLens(range, {
           title: "▶ Run",
           command: "vitestRunner.runTest",
-          arguments: [filePath, test.name],
+          arguments: [filePath, test.name, test.type],
         });
 
         // Debug lens
         const debugLens = new vscode.CodeLens(range, {
           title: "🐛 Debug",
           command: "vitestRunner.debugTest",
-          arguments: [filePath, test.name],
+          arguments: [filePath, test.name, test.type],
         });
 
         lenses.push(runLens, debugLens);
