@@ -1,6 +1,6 @@
 # Vitest Runner
 
-Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Perfect for monorepos and multi-root workspaces.
+Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Perfect for monorepos and multi-root workspaces. **Works with VS Code and Cursor IDE.**
 
 ## Features
 
@@ -13,8 +13,13 @@ Run Vitest tests with CodeLens support - Run and Debug tests directly from your 
 
 ## Installation
 
+### VS Code
 Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode) or search for "Vitest CodeLens Runner" in the Extensions view.
 
+### Cursor IDE
+Cursor can install extensions from the VS Code Marketplace. Simply search for "Vitest CodeLens Runner" in Cursor's Extensions view, or install from the marketplace link above.
+
+### Manual Installation
 Or install from the repository:
 ```bash
 git clone https://github.com/rv-ranbir/vitest-runner.git
@@ -22,6 +27,8 @@ cd vitest-runner
 npm install
 npm run package
 code --install-extension vitest-runner-0.1.0.vsix
+# Or for Cursor:
+cursor --install-extension vitest-runner-0.1.0.vsix
 ```
 
 ## Usage
@@ -49,7 +56,7 @@ Simply click the icons to run or debug that specific test or suite!
 
 ### Keyboard Shortcuts
 
-You can add keyboard shortcuts in VS Code:
+You can add keyboard shortcuts in VS Code or Cursor:
 1. Press `Cmd+K Cmd+S` (Mac) or `Ctrl+K Ctrl+S` (Windows/Linux)
 2. Search for "Vitest: Run Test at Cursor" or "Vitest: Run Test File"
 3. Assign your preferred shortcut
@@ -92,7 +99,7 @@ The extension automatically detects which workspace folder contains your test fi
 
 ### CodeLens Icons Not Showing
 
-1. **Ensure CodeLens is enabled in VS Code:**
+1. **Ensure CodeLens is enabled in VS Code/Cursor:**
    - Open Settings (`Cmd+,` or `Ctrl+,`)
    - Search for "CodeLens"
    - Make sure `Editor: Code Lens` is enabled
@@ -118,7 +125,7 @@ The extension automatically detects which workspace folder contains your test fi
 
 ## Requirements
 
-- VS Code 1.85.0 or higher
+- **VS Code 1.85.0 or higher** OR **Cursor IDE** (compatible with VS Code extensions)
 - Vitest installed in your project
 
 ## Contributing

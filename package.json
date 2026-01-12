@@ -1,7 +1,7 @@
 {
   "name": "vitest-runner",
   "displayName": "Vitest CodeLens Runner",
-  "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces.",
+  "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces. Works with VS Code and Cursor.",
   "version": "0.1.0",
   "publisher": "RanbirVerma",
   "repository": {
@@ -21,7 +21,8 @@
     "runner",
     "codelens",
     "jest",
-    "monorepo"
+    "monorepo",
+    "cursor"
   ],
   "engines": {
     "vscode": "^1.85.0"
