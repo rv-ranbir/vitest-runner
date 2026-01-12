@@ -2,6 +2,12 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [0.2.1] - 2025-01-27
+
+### Fixed
+- Escape special regex characters in test names to prevent pattern matching issues
+- Test names with special characters like `.`, `(`, `)`, `[`, `]`, `+`, `*`, `?`, `^`, `$`, `|`, `\` now work correctly
+
 ## [0.2.0] - 2025-01-27
 
 ### Fixed

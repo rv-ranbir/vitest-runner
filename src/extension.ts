@@ -53,6 +53,11 @@ function isTestFile(file: string) {
   return /(test|spec)\.(t|j)sx?$/.test(file) || file.includes("__tests__");
 }
 
+function escapeRegex(str: string): string {
+  // Escape special regex characters
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function findPackageRoot(file: string) {
   // First, check if the file is within any workspace folder
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -103,8 +108,10 @@ function collectTests(source: ts.SourceFile): TestInfo[] {
           stack.push(arg.text);
           const pos = node.getStart();
           const line = source.getLineAndCharacterOfPosition(pos).line;
+          // Escape special regex characters in test names and join with .*
+          const escapedStack = stack.map(escapeRegex);
           results.push({ 
-            name: stack.join(".*"), 
+            name: escapedStack.join(".*"), 
             pos,
             line,
             type: testType
