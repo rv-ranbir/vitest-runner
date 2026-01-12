@@ -177,7 +177,7 @@ function runVitest(file: string, pattern?: string, debug: boolean = false, testT
   const testArg = pattern 
     ? (testType === "describe" ? ` -t "^${pattern}"` : ` -t "^${pattern}$"`)
     : "";
-  const debugArg = debug ? " --inspect-brk" : "";
+  const debugArg = debug ? " --inspect-brk --no-file-parallelism" : "";
   
   // Reuse existing terminal or create a new one
   if (!terminal || terminal.exitStatus !== undefined) {

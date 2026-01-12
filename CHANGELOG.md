@@ -2,6 +2,12 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [1.1.1] - 2025-01-27
+
+### Fixed
+- Added `--no-file-parallelism` flag when debugging - fixes "cannot use --inspect-brk without --no-file-parallelism" error
+- Debug mode now works correctly with Vitest
+
 ## [1.1.0] - 2025-01-27
 
 ### Fixed
