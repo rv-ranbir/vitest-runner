@@ -1,0 +1,98 @@
+{
+  "name": "vitest-runner",
+  "displayName": "Vitest Runner",
+  "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rv-ranbir/vitest-runner.git"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "keywords": [
+    "vitest",
+    "test",
+    "testing",
+    "runner",
+    "codelens",
+    "jest",
+    "monorepo"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Testing"
+  ],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vitestRunner.runAtCursor",
+        "title": "Vitest: Run Test at Cursor"
+      },
+      {
+        "command": "vitestRunner.runFile",
+        "title": "Vitest: Run Test File"
+      },
+      {
+        "command": "vitestRunner.runTest",
+        "title": "Vitest: Run Test"
+      },
+      {
+        "command": "vitestRunner.debugTest",
+        "title": "Vitest: Debug Test"
+      },
+      {
+        "command": "vitestRunner.refreshCodeLens",
+        "title": "Vitest: Refresh CodeLens"
+      },
+      {
+        "command": "vitestRunner.diagnose",
+        "title": "Vitest: Diagnose CodeLens"
+      }
+    ],
+    "configuration": {
+      "title": "Vitest Runner",
+      "properties": {
+        "vitestRunner.baseCommand": {
+          "type": "string",
+          "default": "npx vitest"
+        },
+        "vitestRunner.defaultArgs": {
+          "type": "array",
+          "default": [
+            "--run"
+          ]
+        },
+        "vitestRunner.enableCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable CodeLens (Run/Debug icons) in test files"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "prepack": "npm run compile",
+    "package": "npm run compile && vsce package",
+    "build": "npm run compile"
+  },
+  "dependencies": {
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
