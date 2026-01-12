@@ -2,6 +2,18 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [1.1.0] - 2025-01-27
+
+### Fixed
+- Fixed describe blocks not running nested tests - test type is now properly passed from CodeLens
+- Describe blocks now correctly use pattern matching to include all nested tests
+
+## [1.0.1] - 2025-01-27
+
+### Fixed
+- Moved TypeScript to runtime dependencies - extension now works correctly when installed from marketplace
+- Fixed "Cannot find module 'typescript'" error on extension activation
+
 ## [1.0.0] - 2025-01-27
 
 ### Release

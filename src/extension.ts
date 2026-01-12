@@ -340,14 +340,14 @@ class VitestCodeLensProvider implements vscode.CodeLensProvider {
         const runLens = new vscode.CodeLens(range, {
           title: "▶ Run",
           command: "vitestRunner.runTest",
-          arguments: [filePath, test.name],
+          arguments: [filePath, test.name, test.type],
         });
 
         // Debug lens
         const debugLens = new vscode.CodeLens(range, {
           title: "🐛 Debug",
           command: "vitestRunner.debugTest",
-          arguments: [filePath, test.name],
+          arguments: [filePath, test.name, test.type],
         });
 
         lenses.push(runLens, debugLens);
