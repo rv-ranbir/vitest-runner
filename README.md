@@ -16,8 +16,11 @@ Run Vitest tests with CodeLens support - Run and Debug tests directly from your 
 ### VS Code
 Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode) or search for "Vitest CodeLens Runner" in the Extensions view.
 
+### Open VSX (VSCodium, Eclipse Theia, etc.)
+Install from [Open VSX Registry](https://open-vsx.org/extension/RanbirVerma/vitest-runner) or search for "Vitest CodeLens Runner" in your editor's Extensions view.
+
 ### Cursor IDE
-Cursor can install extensions from the VS Code Marketplace. Simply search for "Vitest CodeLens Runner" in Cursor's Extensions view, or install from the marketplace link above.
+Cursor can install extensions from the VS Code Marketplace or Open VSX. Simply search for "Vitest CodeLens Runner" in Cursor's Extensions view.
 
 ### Manual Installation
 Or install from the repository:
