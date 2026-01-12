@@ -3,10 +3,14 @@
   "displayName": "Vitest Runner",
   "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces.",
   "version": "0.1.0",
-  "publisher": "local",
+  "publisher": "RanbirVerma",
   "repository": {
     "type": "git",
     "url": "https://github.com/rv-ranbir/vitest-runner.git"
+  },
+  "homepage": "https://github.com/rv-ranbir/vitest-runner#readme",
+  "bugs": {
+    "url": "https://github.com/rv-ranbir/vitest-runner/issues"
   },
   "license": "MIT",
   "icon": "icon.png",
@@ -87,10 +91,9 @@
     "package": "npm run compile && vsce package",
     "build": "npm run compile"
   },
-  "dependencies": {
-    "typescript": "5.9.3"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "typescript": "5.9.3",
     "@types/node": "^20.10.0",
     "@types/vscode": "^1.85.0",
     "@vscode/vsce": "^2.22.0"
