@@ -2,6 +2,12 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [0.1.1] - 2025-01-27
+
+### Added
+- Cursor IDE compatibility and documentation
+- Updated keywords to include "cursor" for better discoverability
+
 ## [0.1.0] - 2025-01-27
 
 ### Added
