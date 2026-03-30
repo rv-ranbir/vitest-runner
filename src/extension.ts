@@ -9,6 +9,9 @@ let outputChannel: vscode.OutputChannel;
 let terminal: vscode.Terminal | undefined;
 let currentWorkingDir: string | undefined;
 
+type TestFramework = "vitest" | "jest";
+type FrameworkMode = "auto" | TestFramework;
+
 export function activate(ctx: vscode.ExtensionContext) {
   outputChannel = vscode.window.createOutputChannel("Vitest Runner");
   outputChannel.appendLine("Vitest Runner extension activated");
@@ -56,6 +59,38 @@ function isTestFile(file: string) {
 function escapeRegex(str: string): string {
   // Escape special regex characters
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function readJsonFile<T>(filePath: string): T | undefined {
+  try {
+    if (!fs.existsSync(filePath)) return undefined;
+    const raw = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(raw) as T;
+  } catch {
+    return undefined;
+  }
+}
+
+function detectFramework(pkgRoot: string, preferred: FrameworkMode): TestFramework {
+  if (preferred !== "auto") return preferred;
+
+  const pkgJsonPath = path.join(pkgRoot, "package.json");
+  const pkgJson = readJsonFile<{
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+  }>(pkgJsonPath);
+
+  const deps = pkgJson?.dependencies ?? {};
+  const devDeps = pkgJson?.devDependencies ?? {};
+
+  const hasVitest = Boolean(deps["vitest"] || devDeps["vitest"]);
+  const hasJest = Boolean(deps["jest"] || devDeps["jest"]);
+
+  if (hasVitest) return "vitest";
+  if (hasJest) return "jest";
+
+  // Fallback to vitest to preserve existing behavior
+  return "vitest";
 }
 
 function findPackageRoot(file: string) {
@@ -167,9 +202,13 @@ function runVitest(file: string, pattern?: string, debug: boolean = false, testT
     ? vscode.workspace.getConfiguration("vitestRunner", workspaceFolder.uri)
     : vscode.workspace.getConfiguration("vitestRunner");
     
-  const baseCmd = cfg.get<string>("baseCommand")!;
+  const frameworkMode = cfg.get<FrameworkMode>("framework", "auto");
+  const vitestCommand = cfg.get<string>("vitestCommand", cfg.get<string>("baseCommand") ?? "npx vitest");
+  const jestCommand = cfg.get<string>("jestCommand", "npx jest");
   const args = cfg.get<string[]>("defaultArgs")!.join(" ");
   const pkg = findPackageRoot(file);
+  const framework = detectFramework(pkg, frameworkMode);
+  const baseCmd = framework === "jest" ? jestCommand : vitestCommand;
   const cmd = baseCmd.replace("{pkg}", pkg);
   const rel = path.relative(pkg, file);
   // For describe blocks, use pattern that matches nested tests (no $ anchor)
@@ -177,7 +216,22 @@ function runVitest(file: string, pattern?: string, debug: boolean = false, testT
   const testArg = pattern 
     ? (testType === "describe" ? ` -t "^${pattern}"` : ` -t "^${pattern}$"`)
     : "";
-  const debugArg = debug ? " --inspect-brk --no-file-parallelism" : "";
+  let debugPrefix = "";
+  let debugExtraArgs = "";
+  if (debug) {
+    if (framework === "vitest") {
+      debugExtraArgs = " --inspect-brk --no-file-parallelism";
+    } else {
+      // Jest: launch via node + --inspect-brk and force serial mode
+      const jestBin = path.join(pkg, "node_modules", "jest", "bin", "jest.js");
+      if (fs.existsSync(jestBin)) {
+        debugPrefix = `node --inspect-brk "${jestBin}"`;
+        debugExtraArgs = " --runInBand";
+      } else {
+        debugExtraArgs = " --runInBand";
+      }
+    }
+  }
   
   // Reuse existing terminal or create a new one
   if (!terminal || terminal.exitStatus !== undefined) {
@@ -200,7 +254,8 @@ function runVitest(file: string, pattern?: string, debug: boolean = false, testT
   }
   
   // Run the test command
-  terminal.sendText(`${cmd} ${args}${debugArg}${testArg} "${rel}"`);
+  const runner = debugPrefix ? debugPrefix : cmd;
+  terminal.sendText(`${runner} ${args}${debugExtraArgs}${testArg} "${rel}"`);
 }
 
 function runTest(file: string, pattern: string, testType?: "describe" | "it" | "test") {

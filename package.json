@@ -2,7 +2,7 @@
   "name": "vitest-runner",
   "displayName": "Vitest CodeLens Runner",
   "description": "Run Vitest tests with CodeLens support - Run and Debug tests directly from your test files, just like Jest Runner. Supports monorepos and multi-root workspaces. Works with VS Code and Cursor.",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "publisher": "RanbirVerma",
   "repository": {
     "type": "git",
@@ -67,9 +67,29 @@
     "configuration": {
       "title": "Vitest Runner",
       "properties": {
+        "vitestRunner.framework": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "vitest",
+            "jest"
+          ],
+          "default": "auto",
+          "description": "Which test framework to use. 'auto' detects Vitest/Jest from the nearest package.json."
+        },
         "vitestRunner.baseCommand": {
           "type": "string",
           "default": "npx vitest"
+        },
+        "vitestRunner.vitestCommand": {
+          "type": "string",
+          "default": "npx vitest",
+          "description": "Command used to run Vitest (when framework is vitest/auto-detected vitest). Supports {pkg} placeholder."
+        },
+        "vitestRunner.jestCommand": {
+          "type": "string",
+          "default": "npx jest",
+          "description": "Command used to run Jest (when framework is jest/auto-detected jest). Supports {pkg} placeholder."
         },
         "vitestRunner.defaultArgs": {
           "type": "array",

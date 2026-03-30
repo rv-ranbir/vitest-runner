@@ -64,6 +64,9 @@ Configure the extension in your `.vscode/settings.json`:
 
 ```json
 {
+  "vitestRunner.framework": "auto",
+  "vitestRunner.vitestCommand": "npx vitest",
+  "vitestRunner.jestCommand": "npx jest",
   "vitestRunner.baseCommand": "npx vitest",
   "vitestRunner.defaultArgs": ["--run"],
   "vitestRunner.enableCodeLens": true
@@ -72,6 +75,9 @@ Configure the extension in your `.vscode/settings.json`:
 
 ### Configuration Options
 
+- **`vitestRunner.framework`** (default: `"auto"`) - Detects `vitest`/`jest` from the nearest `package.json` and runs the right runner. You can force `"vitest"` or `"jest"`.
+- **`vitestRunner.vitestCommand`** (default: `"npx vitest"`) - Command used for Vitest. Supports `{pkg}` placeholder.
+- **`vitestRunner.jestCommand`** (default: `"npx jest"`) - Command used for Jest. Supports `{pkg}` placeholder.
 - **`vitestRunner.baseCommand`** (default: `"npx vitest"`) - Base command to run Vitest
 - **`vitestRunner.defaultArgs`** (default: `["--run"]`) - Default arguments passed to Vitest
 - **`vitestRunner.enableCodeLens`** (default: `true`) - Enable/disable CodeLens icons

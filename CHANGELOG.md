@@ -2,11 +2,24 @@
 
 All notable changes to the "Vitest Runner" extension will be documented in this file.
 
+## [1.2.0] - 2025-01-27
+
+### Added
+- Jest support with auto-detection (Vitest vs Jest) from nearest `package.json`
+- New settings: `vitestRunner.framework`, `vitestRunner.vitestCommand`, `vitestRunner.jestCommand`
+
+### Fixed
+- Debug mode: Vitest uses `--inspect-brk --no-file-parallelism`; Jest uses `--inspect-brk` with `--runInBand`
+
 ## [1.1.1] - 2025-01-27
 
 ### Fixed
 - Added `--no-file-parallelism` flag when debugging - fixes "cannot use --inspect-brk without --no-file-parallelism" error
 - Debug mode now works correctly with Vitest
+
+### Added
+- Jest support with auto-detection (Vitest vs Jest) from nearest `package.json`
+- New settings: `vitestRunner.framework`, `vitestRunner.vitestCommand`, `vitestRunner.jestCommand`
 
 ## [1.1.0] - 2025-01-27
 
